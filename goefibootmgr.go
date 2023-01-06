@@ -38,6 +38,11 @@ func (b *BootEntry) Deactivate() error {
 	return err
 }
 
+// Delete delete the given boot entry
+func (b *BootEntry) Delete() error {
+	return exec.Command("efibootmgr", "-b", bootnumToHexString(b.Num), "-B").Run()
+}
+
 // BootManagerInfo holds all info returned from the efibootmgr command
 type BootManagerInfo struct {
 	// BootEntry stored in the EFI BootCurrent variable
